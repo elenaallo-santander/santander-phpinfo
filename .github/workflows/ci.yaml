@@ -5,6 +5,14 @@ on:
       - docker
 jobs:
   Dockerfile:
+    env:
+      filename: Dockerfile
+      pattern: started
+      project: santander-phpinfo
+      registry: index.docker.io
+      sleep: "10"
+      tagname: ci
+      user: testelenaallo
     runs-on: ubuntu-18.04
     steps:
       - name: checkout
@@ -12,9 +20,19 @@ jobs:
       - name: debug
         run: set -x
       - name: build
-        run: docker build -- file Dockerfile --no-cache --tag testelenaallo/santander-phpinfo:ci .
+        run: docker build -- file Dockerfile --no-cache --tag index.docker.io/testelenaallo/santander-phpinfo:ci .
       - name: run
-        run: docker run --detach --name santander-phpinfo testelenaallo/santander-phpinfo:ci
+        run: docker run --detach --name santander-phpinfo index.docker.io/testelenaallo/santander-phpinfo:ci
+      - name: test
+        run: while true ; do sleep 10 ; docker logs santander-phpinfo 2>& 1 | grep started && break ; done
+      - name: top
+        run: docker top santander-phpinfo
+      - name: stats
+        run: docker stats --no-stream santander-phpinfo
+      - name: inspect
+        run: docker inspect santander-phpinfo
+      - name: history
+        run: docker history index.docker.io/testelenaallo/santander-phpinfo:ci
         
         
       
