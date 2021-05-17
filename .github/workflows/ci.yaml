@@ -1,0 +1,20 @@
+name: ci
+on:
+  push:
+    branches:
+      - docker
+jobs:
+  Dockerfile:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: debug
+        run: set -x
+      - name: build
+        run: docker build -- file Dockerfile --no-cache --tag franmvida/santander-phpinfo:ci .
+      - name: run
+        run: docker run --detach --name santander-phpinfo franmvida/santander-phpinfo:ci
+        
+        
+      
