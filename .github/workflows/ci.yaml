@@ -20,7 +20,7 @@ jobs:
       - name: debug
         run: set -x
       - name: build
-        run: docker build -- file Dockerfile --no-cache --tag index.docker.io/testelenaallo/santander-phpinfo:ci .
+        run: docker build --file Dockerfile --no-cache --tag index.docker.io/testelenaallo/santander-phpinfo:ci .
       - name: run
         run: docker run --detach --name santander-phpinfo index.docker.io/testelenaallo/santander-phpinfo:ci
       - name: test
