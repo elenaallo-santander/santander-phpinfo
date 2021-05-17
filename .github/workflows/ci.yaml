@@ -12,9 +12,9 @@ jobs:
       - name: debug
         run: set -x
       - name: build
-        run: docker build -- file Dockerfile --no-cache --tag franmvida/santander-phpinfo:ci .
+        run: docker build -- file Dockerfile --no-cache --tag testelenaallo/santander-phpinfo:ci .
       - name: run
-        run: docker run --detach --name santander-phpinfo franmvida/santander-phpinfo:ci
+        run: docker run --detach --name santander-phpinfo testelenaallo/santander-phpinfo:ci
         
         
       
